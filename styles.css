@@ -63,7 +63,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
     line-height: 1.6;
-    color: #333;
+    color: #522A0F;
     background-color: #fafafa;
     overflow-x: hidden;
 }
@@ -95,7 +95,7 @@ p {
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #555;
+    color: #522A0F;
 }
 
 /* Container */
@@ -137,7 +137,7 @@ p {
 /* About Section */
 .about {
     padding: 120px 0;
-    background-color: #fff;
+    background-color: #D4C4A7;
 }
 
 .about-content {
@@ -165,7 +165,7 @@ p {
 .quote-section {
     padding: 120px 0;
     padding-bottom: 40px;
-    background-color: #f5f5f5;
+    background-color: #EFDECD;
     position: relative;
 }
 
@@ -193,7 +193,7 @@ blockquote {
     font-size: 2.2rem;
     font-style: italic;
     line-height: 1.4;
-    color: #333;
+    color: #522A0F;
     text-align: left;
     margin: 0;
     position: relative;
@@ -230,7 +230,7 @@ blockquote {
 /* Carousel Section */
 .carousel-section {
     padding: 120px 0;
-    background-color: #fff;
+    background-color: #D4C4A7;
 }
 
 /* Carousel */
@@ -282,7 +282,7 @@ blockquote {
     font-size: 48px;
     font-weight: 100;
     font-family: 'Arial', sans-serif;
-    color: #333;
+    color: #522A0F;
     cursor: pointer;
     transition: all 0.3s ease;
     pointer-events: auto;
@@ -292,13 +292,13 @@ blockquote {
 }
 
 .carousel-btn:hover {
-    color: rgba(51, 51, 51, 0.6);
+    color: rgba(82, 42, 15, 0.6);
 }
 
 /* Contact Section */
 .contact {
     padding: 120px 0;
-    background-color: #f5f5f5;
+    background-color: #EFDECD;
 }
 
 .contact-layout {
@@ -310,14 +310,16 @@ blockquote {
 
 .contact-content h2 {
     margin-bottom: 30px;
+    color: #522A0F;
 }
 
 .contact-content h3 {
     margin-top: 50px;
+    color: #522A0F;
 }
 
 .email {
-    color: #333;
+    color: #522A0F;
     font-size: 1.1rem;
     text-decoration: none;
     border-bottom: 2px solid transparent;
@@ -328,11 +330,11 @@ blockquote {
 
 .social {
     font-size: 1.2rem;
-    color: #666;
+    color: #522A0F;
 }
 
 .social a {
-    color: #333;
+    color: #522A0F;
     font-size: 1.1rem;
     text-decoration: none;
     border-bottom: 2px solid transparent;
@@ -342,7 +344,7 @@ blockquote {
 }
 
 .social a:hover {
-    border-bottom-color: #333;
+    border-bottom-color: #522A0F;
 }
 
 .contact-image img {
@@ -412,7 +414,7 @@ blockquote {
     }
     
     .quote-layout {
-        min-height: 700px;
+        min-height: auto;
         grid-template-columns: 1fr;
         gap: 30px;
     }
@@ -433,6 +435,12 @@ blockquote {
     
     .quote-right-image {
         display: none;
+        grid-column: unset;
+        grid-row: unset;
+        margin-top: 0;
+        padding-left: 0;
+        height: 0;
+        width: 0;
     }
     
     .carousel-container {
