@@ -11,9 +11,9 @@
 </head>
 <body>
     <!-- Image Modal -->
-    <div class="image-modal" onclick="closeModal()">
+    <div class="image-modal" id="imageModal">
         <img src="" alt="Expanded image">
-        <span class="close-modal">&times;</span>
+        <span class="close-modal" onclick="closeModal()">&times;</span>
     </div>
     <!-- Floating Logo -->
     <div class="floating-logo">
@@ -29,14 +29,14 @@
     <section class="about">
         <div class="container">
             <div class="about-content">
+                <div class="about-image">
+                    <img src="page2photo.jpg" alt="Antonia Minor Jewelry in Hand">
+                </div>
                 <div class="about-text">
                     <h1>Welcome to <span class="brand">Antonia Minor</span></h1>
                     <p>Where forgotten treasures find new life. I specialize in transforming unloved and discarded beads from pre-existing jewelry into unique, contemporary pieces. Each creation is a testament to sustainable artistry, giving beautiful materials a second chance to shine.</p>
                     <p>The name Antonia Minor is a homage to my Ancient Roman namesake, the remarkable daughter of Mark Antony—a figure famously linked to Cleopatra. Just as Antonia Minor carved her own path in history, my gallery aims to redefine the narrative of pre-owned materials, crafting modern heirlooms with a story.</p>
                     <p>Discover a collection that blends historical inspiration with innovative design, proving that true beauty is timeless and can always be reborn.</p>
-                </div>
-                <div class="about-image">
-                    <img src="page2photo.jpg" alt="Antonia Minor Jewelry in Hand">
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <div class="contact-layout">
                 <div class="contact-content">
                     <h2>Contact</h2>
-                    <a href="mailto:Antoniaminorjewellery@gmail.com" class="email">Antoniaminorjewellery@gmail.com</a>
+                    <a href="mailto:antoniaminorjewellery@gmail.com" class="email">antoniaminorjewellery@gmail.com</a>
                     <h3>Follow</h3>
                     <p class="social"><a href="https://www.instagram.com/antonia_minor_jewellery" target="_blank" rel="noopener noreferrer">@antonia_minor_jewellery</a></p>
                 </div>
@@ -103,6 +103,7 @@
     <script>
         // Global variable for carousel auto-advance
         let autoAdvanceInterval;
+        let scrollPosition = 0;
         
         // Image modal functionality
         function openModal(imgSrc) {
@@ -110,7 +111,15 @@
             const modalImg = modal.querySelector('img');
             modalImg.src = imgSrc;
             modal.classList.add('active');
+            
+            // Store current scroll position
+            scrollPosition = window.pageYOffset;
+            
             document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.top = `-${scrollPosition}px`;
+            
             // Pause carousel auto-advance when modal is open
             if (autoAdvanceInterval) {
                 clearInterval(autoAdvanceInterval);
@@ -121,6 +130,13 @@
             const modal = document.querySelector('.image-modal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.top = '';
+            
+            // Restore scroll position
+            window.scrollTo(0, scrollPosition);
+            
             // Resume carousel auto-advance if carousel exists
             if (typeof startAutoAdvance === 'function') {
                 startAutoAdvance();
@@ -134,9 +150,24 @@
             }
         });
 
-        // Add click handlers to all images except logo
+        // Close modal when clicking on background (not the image)
         document.addEventListener('DOMContentLoaded', () => {
-            const images = document.querySelectorAll('img:not(.floating-logo img)');
+            const modal = document.getElementById('imageModal');
+            const modalImg = modal.querySelector('img');
+            
+            modal.addEventListener('click', (e) => {
+                // Only close if clicking on the modal background, not the image
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+
+        });
+
+        // Add click handlers to all images except logo, hero image, and carousel images
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('img:not(.floating-logo img):not(.hero img):not(.carousel-track img)');
             images.forEach(img => {
                 img.style.cursor = 'pointer';
                 img.addEventListener('click', (e) => {
@@ -202,15 +233,25 @@
                 track.style.transition = 'transform 0.5s ease';
             }, 50);
             
-            // Re-add click handlers to cloned images
-            const clonedImages = track.querySelectorAll('img');
-            clonedImages.forEach(img => {
+            // Apply click handlers to ALL carousel images (including clones)
+            applyCarouselClickHandlers();
+        }
+        
+        // Function to apply click handlers to carousel images
+        function applyCarouselClickHandlers() {
+            const carouselImages = track.querySelectorAll('img');
+            carouselImages.forEach(img => {
+                // Remove any existing click handlers to prevent duplicates
+                img.removeEventListener('click', handleCarouselImageClick);
                 img.style.cursor = 'pointer';
-                img.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModal(img.src);
-                });
+                img.addEventListener('click', handleCarouselImageClick);
             });
+        }
+        
+        // Handler function for carousel image clicks
+        function handleCarouselImageClick(e) {
+            e.stopPropagation();
+            openModal(e.target.src);
         }
         
         function moveCarousel(direction) {
