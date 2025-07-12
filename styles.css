@@ -114,6 +114,12 @@ p {
     transition: opacity 0.3s ease;
 }
 
+body.modal-open .floating-logo {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
 .floating-logo img {
     width: 300px;
     height: auto;
@@ -311,11 +317,13 @@ blockquote {
 .contact-content h2 {
     margin-bottom: 30px;
     color: #522A0F;
+    font-size: 2.5rem;
 }
 
 .contact-content h3 {
     margin-top: 50px;
     color: #522A0F;
+    font-size: 2.5rem;
 }
 
 .email {

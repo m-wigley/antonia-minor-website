@@ -111,6 +111,7 @@
             const modalImg = modal.querySelector('img');
             modalImg.src = imgSrc;
             modal.classList.add('active');
+            document.body.classList.add('modal-open');
             
             // Store current scroll position
             scrollPosition = window.pageYOffset;
@@ -129,6 +130,7 @@
         function closeModal() {
             const modal = document.querySelector('.image-modal');
             modal.classList.remove('active');
+            document.body.classList.remove('modal-open');
             document.body.style.overflow = '';
             document.body.style.position = '';
             document.body.style.width = '';
@@ -180,6 +182,13 @@
         // Fade out logo on scroll
         window.addEventListener('scroll', () => {
             const logo = document.querySelector('.floating-logo');
+            const modal = document.querySelector('.image-modal');
+            
+            // Don't change logo visibility if modal is open
+            if (modal.classList.contains('active')) {
+                return;
+            }
+            
             const heroHeight = document.querySelector('.hero').offsetHeight;
             const scrollPosition = window.scrollY;
             const fadeStartPoint = heroHeight * 0.3; // Start fading at 30% of hero height
