@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antonia Minor - Contemporary Jewelry from Forgotten Treasures</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Image Modal -->
+    <div class="image-modal" onclick="closeModal()">
+        <img src="" alt="Expanded image">
+        <span class="close-modal">&times;</span>
+    </div>
+    <!-- Floating Logo -->
+    <div class="floating-logo">
+        <img src="logo_transparent.png" alt="Antonia Minor">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="header 2016px.jpg" alt="Antonia Minor Jewelry Collection">
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h1>Welcome to <span class="brand">Antonia Minor</span></h1>
+                    <p>Where forgotten treasures find new life. I specialize in transforming unloved and discarded beads from pre-existing jewelry into unique, contemporary pieces. Each creation is a testament to sustainable artistry, giving beautiful materials a second chance to shine.</p>
+                    <p>The name Antonia Minor is a homage to my Ancient Roman namesake, the remarkable daughter of Mark Antony—a figure famously linked to Cleopatra. Just as Antonia Minor carved her own path in history, my gallery aims to redefine the narrative of pre-owned materials, crafting modern heirlooms with a story.</p>
+                    <p>Discover a collection that blends historical inspiration with innovative design, proving that true beauty is timeless and can always be reborn.</p>
+                </div>
+                <div class="about-image">
+                    <img src="page2photo.jpg" alt="Antonia Minor Jewelry in Hand">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-layout">
+                <div class="quote-content">
+                    <blockquote>
+                        "From discarded origins, my artistry re-imagines beads into distinct, contemporary jewellery"
+                    </blockquote>
+                    <div class="quote-left-image">
+                        <img src="page2left.jpg" alt="Jewelry detail">
+                    </div>
+                </div>
+                <div class="quote-right-image">
+                    <img src="page2right.jpg" alt="Jewelry collection">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+        <div class="container">
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-track">
+                        <img src="carousel_photos/Photo 05-05-2025, 3 19 22 PM.jpg" alt="Jewelry piece 1">
+                        <img src="carousel_photos/Photo 09-07-2025, 3 32 18 PM.jpg" alt="Jewelry piece 2">
+                        <img src="carousel_photos/Photo 10-07-2025, 11 10 09 AM.jpg" alt="Jewelry piece 3">
+                        <img src="carousel_photos/Photo 13-06-2025, 4 06 00 PM.jpg" alt="Jewelry piece 4">
+                        <img src="carousel_photos/Photo 13-06-2025, 4 11 52 PM.jpg" alt="Jewelry piece 5">
+                        <img src="carousel_photos/Photo 15-06-2025, 10 09 05 AM.jpg" alt="Jewelry piece 6">
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="contact-content">
+                    <h2>Contact</h2>
+                    <a href="mailto:Antoniaminorjewellery@gmail.com" class="email">Antoniaminorjewellery@gmail.com</a>
+                    <h3>Follow</h3>
+                    <p class="social"><a href="https://www.instagram.com/antonia_minor_jewellery" target="_blank" rel="noopener noreferrer">@antonia_minor_jewellery</a></p>
+                </div>
+                <div class="contact-image">
+                    <img src="page4.jpg" alt="Antonia Minor Jewelry Collection">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Global variable for carousel auto-advance
+        let autoAdvanceInterval;
+        
+        // Image modal functionality
+        function openModal(imgSrc) {
+            const modal = document.querySelector('.image-modal');
+            const modalImg = modal.querySelector('img');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Pause carousel auto-advance when modal is open
+            if (autoAdvanceInterval) {
+                clearInterval(autoAdvanceInterval);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.image-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            // Resume carousel auto-advance if carousel exists
+            if (typeof startAutoAdvance === 'function') {
+                startAutoAdvance();
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Add click handlers to all images except logo
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('img:not(.floating-logo img)');
+            images.forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openModal(img.src);
+                });
+            });
+        });
+
+        // Fade out logo on scroll
+        window.addEventListener('scroll', () => {
+            const logo = document.querySelector('.floating-logo');
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const scrollPosition = window.scrollY;
+            const fadeStartPoint = heroHeight * 0.3; // Start fading at 30% of hero height
+            const fadeEndPoint = heroHeight * 0.6; // Fully faded at 60% of hero height
+            
+            if (scrollPosition <= fadeStartPoint) {
+                logo.style.opacity = '1';
+                logo.style.pointerEvents = 'auto';
+            } else if (scrollPosition >= fadeEndPoint) {
+                logo.style.opacity = '0';
+                logo.style.pointerEvents = 'none';
+            } else {
+                // Calculate opacity based on scroll position between fade points
+                const fadeProgress = (scrollPosition - fadeStartPoint) / (fadeEndPoint - fadeStartPoint);
+                logo.style.opacity = 1 - fadeProgress;
+                logo.style.pointerEvents = 'auto';
+            }
+        });
+
+        // Carousel functionality with smooth infinite loop
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.querySelectorAll('img'));
+        let currentSlide = 0;
+        let isTransitioning = false;
+        
+        function getSlidesPerView() {
+            return window.innerWidth < 768 ? 1 : 3;
+        }
+        
+        // Clone slides for infinite loop effect
+        function setupInfiniteLoop() {
+            const slidesPerView = getSlidesPerView();
+            
+            // Clone first and last few slides
+            for (let i = 0; i < slidesPerView; i++) {
+                const firstClone = slides[i].cloneNode(true);
+                const lastClone = slides[slides.length - 1 - i].cloneNode(true);
+                
+                track.appendChild(firstClone);
+                track.insertBefore(lastClone, track.firstChild);
+            }
+            
+            // Start at the first real slide (after prepended clones)
+            const slideWidth = 100 / slidesPerView;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(-${slidesPerView * slideWidth}%)`;
+            currentSlide = slidesPerView;
+            
+            // Re-enable transition after initial positioning
+            setTimeout(() => {
+                track.style.transition = 'transform 0.5s ease';
+            }, 50);
+            
+            // Re-add click handlers to cloned images
+            const clonedImages = track.querySelectorAll('img');
+            clonedImages.forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openModal(img.src);
+                });
+            });
+        }
+        
+        function moveCarousel(direction) {
+            const slidesPerView = getSlidesPerView();
+            const totalSlides = track.children.length;
+            const slideWidth = 100 / slidesPerView;
+            
+            currentSlide += direction;
+            
+            track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+            
+            // Reset auto-advance timer
+            resetAutoAdvance();
+            
+            // Handle infinite loop
+            track.addEventListener('transitionend', function handleTransition() {
+                track.removeEventListener('transitionend', handleTransition);
+                
+                // If we've reached the cloned slides at the end
+                if (currentSlide >= totalSlides - slidesPerView) {
+                    track.style.transition = 'none';
+                    currentSlide = slidesPerView;
+                    track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease';
+                    }, 50);
+                }
+                
+                // If we've reached the cloned slides at the beginning
+                if (currentSlide < slidesPerView) {
+                    track.style.transition = 'none';
+                    currentSlide = totalSlides - slidesPerView * 2;
+                    track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease';
+                    }, 50);
+                }
+            });
+        }
+        
+        // Auto-advance functionality
+        function startAutoAdvance() {
+            autoAdvanceInterval = setInterval(() => {
+                moveCarousel(1);
+            }, 10000);
+        }
+        
+        function resetAutoAdvance() {
+            clearInterval(autoAdvanceInterval);
+            startAutoAdvance();
+        }
+        
+        // Initialize infinite loop and auto-advance
+        setupInfiniteLoop();
+        startAutoAdvance();
+
+        // Reset carousel on resize
+        window.addEventListener('resize', () => {
+            // Reload to reset the carousel properly
+            location.reload();
+        });
+    </script>
+</body>
+</html>
