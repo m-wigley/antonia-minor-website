@@ -136,6 +136,18 @@
             document.body.style.width = '';
             document.body.style.top = '';
             
+            // Clear any text selection more aggressively
+            if (window.getSelection) {
+                window.getSelection().removeAllRanges();
+            } else if (document.selection) {
+                document.selection.empty();
+            }
+            
+            // Force blur on any focused elements
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+            
             // Restore scroll position
             window.scrollTo(0, scrollPosition);
             
@@ -163,8 +175,6 @@
                     closeModal();
                 }
             });
-            
-
         });
 
         // Add click handlers to all images except logo, hero image, and carousel images
