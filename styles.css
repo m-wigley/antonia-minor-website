@@ -346,6 +346,10 @@ blockquote {
     display: inline-block;
 }
 
+.email:hover {
+    border-bottom-color: #522A0F;
+}
+
 .social {
     font-size: 1.2rem;
     color: #522A0F;
