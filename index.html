@@ -30,7 +30,7 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <img src="coin_transparent.png" alt="Antonia Minor Jewelry in Hand">
+                    <img src="coin_transparent.png" alt="Antonia Minor Jewelry in Hand" class="no-expand">
                 </div>
                 <div class="about-text">
                     <h1>Welcome to <span class="brand">Antonia Minor</span></h1>
@@ -178,9 +178,9 @@
             });
         });
 
-        // Add click handlers to all images except logo, hero image, and carousel images
+        // Add click handlers to all images except logo, hero image, carousel images, and no-expand images
         document.addEventListener('DOMContentLoaded', () => {
-            const images = document.querySelectorAll('img:not(.floating-logo img):not(.hero img):not(.carousel-track img)');
+            const images = document.querySelectorAll('img:not(.floating-logo img):not(.hero img):not(.carousel-track img):not(.no-expand)');
             images.forEach(img => {
                 img.style.cursor = 'pointer';
                 img.addEventListener('click', (e) => {
